@@ -7,7 +7,12 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 
+
+/* portul folosit */
 #define PORT 3101
+
+/* codul de eroare returnat de anumite apeluri */
+extern int errno;
 
 int main(){
 
@@ -19,7 +24,7 @@ int main(){
 
 	socklen_t addr_size;
 
-	char buffer[1024];
+	char message[1024];
 	pid_t childpid;
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -59,16 +64,19 @@ int main(){
 			close(sockfd);
 
 			while(1){
-				recv(newSocket, buffer, 1024, 0);
-				if(strcmp(buffer, ":exit") == 0){
+				recv(newSocket, message, 1024, 0);
+				if(strcmp(message, ":exit") == 0){
 					printf("Disconnected from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
 					break;
 				}else{
-					printf("Client: %s\n", buffer);
-					send(newSocket, buffer, strlen(buffer), 0);
-					bzero(buffer, sizeof(buffer));
+					printf("Client: %s\n", message);
+					send(newSocket, message, strlen(message), 0);
+					bzero(message, sizeof(message));
 				}
 			}
+		}
+		else {
+				close(newSocket);
 		}
 
 	}
