@@ -39,7 +39,7 @@ int main(){
 		printf("[-]Error in binding.\n");
 		exit(1);
 	}
-	printf("[+]Bind to port %d\n", 4444);
+	printf("[+]Bind to port %d\n", 3101);
 
 	if(listen(sockfd, 10) == 0){
 		printf("[+]Listening....\n");
