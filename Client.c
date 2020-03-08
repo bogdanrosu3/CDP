@@ -43,7 +43,7 @@ int main(){
 			close(clientSocket);
 			printf("[-]Disconnected from server.\n");
 			exit(1);
-		  
+		    break;
 		}
 
 		if(recv(clientSocket, buffer, 1024, 0) < 0){
