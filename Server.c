@@ -16,7 +16,7 @@ extern int errno;
 
 int main(){
 
-	int sockfd, ret;
+	int sd, ret;
 	 struct sockaddr_in serverAddr;
 
 	int newSocket;
@@ -27,10 +27,10 @@ int main(){
 	char message[1024];
 	pid_t childpid;
 
-	sockfd = socket(AF_INET, SOCK_STREAM, 0);
-	if(sockfd < 0){
+	sd = socket(AF_INET, SOCK_STREAM, 0);
+	if(sd < 0){
 		printf("[-]Error in connection.\n");
-		exit(1);
+		return errno;
 	}
 	printf("[+]Server Socket is created.\n");
 
@@ -39,29 +39,31 @@ int main(){
 	serverAddr.sin_port = htons(PORT);
 	serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-	ret = bind(sockfd, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
+	ret = bind(sd, (struct sockaddr*)&serverAddr, sizeof(serverAddr));
 	if(ret < 0){
 		printf("[-]Error in binding.\n");
-		exit(1);
+		return errno;
 	}
 	printf("[+]Bind to port %d\n", 3101);
 
-	if(listen(sockfd, 10) == 0){
+	if(listen(sd, 10) == 0){
 		printf("[+]Listening....\n");
 	}else{
 		printf("[-]Error in binding.\n");
+		return errno;
 	}
 
 
 	while(1){
-		newSocket = accept(sockfd, (struct sockaddr*)&newAddr, &addr_size);
+		newSocket = accept(sd, (struct sockaddr*)&newAddr, &addr_size);
 		if(newSocket < 0){
 			exit(1);
+			return errno;
 		}
 		printf("Connection accepted from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
 
 		if((childpid = fork()) == 0){
-			close(sockfd);
+			close(sd);
 
 			while(1){
 				recv(newSocket, message, 1024, 0);
@@ -78,7 +80,7 @@ int main(){
 		else {
 				close(newSocket);
 		}
-
+		close(newSocket);
 	}
 
 	close(newSocket);
