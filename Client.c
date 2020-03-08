@@ -6,7 +6,7 @@
 #include <sys/types.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
-
+#include <errno.h>
 #define PORT 3101
 
 int main(){
@@ -43,6 +43,7 @@ int main(){
 			close(clientSocket);
 			printf("[-]Disconnected from server.\n");
 			exit(1);
+		  
 		}
 
 		if(recv(clientSocket, buffer, 1024, 0) < 0){
