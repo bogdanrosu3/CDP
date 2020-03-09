@@ -78,12 +78,8 @@ int main(){
 				}
 			}
 		}
-		else {
-				close(newSocket);
-		}
 	
 	}
-
 	close(newSocket);
 
 
