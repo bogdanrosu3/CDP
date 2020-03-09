@@ -76,17 +76,17 @@ int main(){
 					int num1, num2, answer, choice;
 
 					s : n=write(newSocket,"Enter Number 1: ",strlen("Enter Number 1")); //Ask for number 1
-					if(n < 0) error("ERROR writing to socket");
+					if(n < 0) {error("ERROR writing to socket");}
 					read(newSocket, &num1, sizeof(int));            //Read No 1
 					printf("Client - Number 1 is: %d\n" , num1);  
 
 					n=write(newSocket,"Enter Number 2: ",strlen("Enter Number 2")); //Ask for number 2
-					if(n < 0) error("ERROR writing to socket");
+					if(n < 0) {error("ERROR writing to socket");}
 					read(newSocket, &num2, sizeof(int));            //Read No 2
 					printf("Client - Number 2 is: %d\n" , num2);   
 
 					n=write(newSocket,"Enter your choice: \n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Exit\n",strlen("Enter your choice : : \n1.Addition\n2.Subtraction\n3.Multiplication\n4.Division\n5.Exit\n"));   //Ask for choice
-					if(n < 0) error("ERROR writing to socket");
+					if(n < 0) {error("ERROR writing to socket");}
 					read(newSocket, &choice, sizeof(int));            //Read choice
 					printf("Client - Choise is: %d\n" , choice); 
 
@@ -110,9 +110,9 @@ int main(){
 					}
 
 					write(newSocket, &answer, sizeof(int));
-					if(choice != 5)
+					if(choice != 5){
 						  goto s;
-
+					}
 					Q: close(newSocket);					   
 					   return 0;
 				}
