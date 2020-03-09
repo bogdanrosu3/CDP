@@ -61,29 +61,29 @@ int main(){
 				scanf("%d", &num1);                              //enter nr 1
 				write(clientSocket, &num1, sizeof(int));                    //send nr 1 to server
 
-				  bzero(buffer,255);
-				  n=read(clientSocket,buffer,255);                          //read server string
-				  if(n<0) {error("ERROR reading from socket");}
-				  printf("Server - %s\n",buffer);
-				  scanf("%d", &num2);                              //enter nr 2
-				  write(clientSocket, &num2, sizeof(int));                    //send nr 2 to server
+				bzero(buffer,255);
+			    n=read(clientSocket,buffer,255);                          //read server string
+				if(n<0) {error("ERROR reading from socket");}
+				printf("Server - %s\n",buffer);
+				scanf("%d", &num2);                              //enter nr 2
+				write(clientSocket, &num2, sizeof(int));                    //send nr 2 to server
 
-				  bzero(buffer,255);
-				  n=read(clientSocket,buffer,255);                            //read server string
-				  if(n<0) {error("ERROR reading from socket");}
-				  printf("Server - %s",buffer);
-				  scanf("%d", &choice);                              //enter choice
-				  write(clientSocket, &choice, sizeof(int));                    //send choice to server
+				bzero(buffer,255);
+				n=read(clientSocket,buffer,255);                            //read server string
+				if(n<0) {error("ERROR reading from socket");}
+				printf("Server - %s",buffer);
+				scanf("%d", &choice);                              //enter choice
+				write(clientSocket, &choice, sizeof(int));                    //send choice to server
 
-				  if(choice == 5){
-						  goto Q;
-				  }
-				  read(clientSocket, &answer, sizeof(int));
-				  printf("Server - The answer is: %d\n", answer);
+				if(choice == 5){
+					goto Q;
+				}
+				read(clientSocket, &answer, sizeof(int));
+				printf("Server - The answer is: %d\n", answer);
 
-				  if(choice != 5){
-					  goto s;
-				  }
+				if(choice != 5){
+					goto s;
+				}
 				  Q:
 				   printf("you have selected to exit. Exit Successful.");
 				   close(clientSocket);
