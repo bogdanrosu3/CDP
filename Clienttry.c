@@ -27,7 +27,7 @@ int main(){
 		exit(1);
 	}
 	printf("[+]Client Socket is created.\n");
-
+	bzero((char *) &serv_adr , sizeof(serv_adr));
 	memset(&serverAddr, '\0', sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_port = htons(PORT);
