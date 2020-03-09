@@ -77,6 +77,15 @@ int main(){
 					bzero(message, sizeof(message));
 				}
 				if(strcmp(message, ":calc") == 0){
+					   listen(sockd, 5);
+					   struct sockaddr_in cl_adr;
+					   socklen_t clilen;
+					   clilen = sizeof(cl_adr);
+						
+					   newsockd = accept(sockd, (struct sockaddr *) &cl_adr, &clilen);
+
+					  if(newsockd < 0)
+					  error("Error on accept");
 					int num1, num2, answer, choice;
 
 					s : n=write(newSocket,"Enter Number 1: ",strlen("Enter Number 1")); //Ask for number 1
