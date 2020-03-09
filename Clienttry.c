@@ -9,11 +9,17 @@
 #include <errno.h>
 #define PORT 3101
 
+void error(const char *msg)
+{
+perror(msg);
+exit(0);
+}
+
 int main(){
 
-	int clientSocket, ret;
+	int clientSocket, ret, n;
 	struct sockaddr_in serverAddr;
-	char buffer[1024];
+	char buffer[255];
 
 	clientSocket = socket(AF_INET, SOCK_STREAM, 0);
 	if(clientSocket < 0){
@@ -45,51 +51,46 @@ int main(){
 			exit(1);
 		    break;
 		}
-		
 		if(strcmp(buffer, ":calc") == 0){
-			 int num1, num2, answer, choice;
+			    int num1, num2, answer, choice;
 
-			s:bzero(buffer,256);
-			  n=read(clientSocket,buffer,255);                           //read server string
-			  if(n<0) error("ERROR reading from socket");
-			  printf("Server - %s\n",buffer);
-			  scanf("%d", &num1);                              //enter nr 1
-			  write(clientSocket, &num1, sizeof(int));                    //send nr 1 to server
+				s:(buffer,256);
+				n=read(clientSocket,buffer,255);                           //read server string
+				if(n<0) {error("ERROR reading from socket");}
+				printf("Server - %s\n",buffer);
+				scanf("%d", &num1);                              //enter nr 1
+				write(clientSocket, &num1, sizeof(int));                    //send nr 1 to server
 
-			  bzero(buffer,256);
-			  n=read(clientSocket,buffer,255);                          //read server string
-			  if(n<0) error("ERROR reading from socket");
-			  printf("Server - %s\n",buffer);
-			  scanf("%d", &num2);                              //enter nr 2
-			  write(clientSocket, &num2, sizeof(int));                    //send nr 2 to server
+				  memset(buffer,256);
+				  n=read(clientSocket,buffer,255);                          //read server string
+				  if(n<0) {error("ERROR reading from socket");}
+				  printf("Server - %s\n",buffer);
+				  scanf("%d", &num2);                              //enter nr 2
+				  write(clientSocket, &num2, sizeof(int));                    //send nr 2 to server
 
-			  bzero(buffer,256);
-			  n=read(clientSocket,buffer,255);                            //read server string
-			  if(n<0) error("ERROR reading from socket");
-			  printf("Server - %s",buffer);
-			  scanf("%d", &choice);                              //enter choice
-			  write(clientSocket, &choice, sizeof(int));                    //send choice to server
+				  memset(buffer,256);
+				  n=read(clientSocket,buffer,255);                            //read server string
+				  if(n<0) {error("ERROR reading from socket");}
+				  printf("Server - %s",buffer);
+				  scanf("%d", &choice);                              //enter choice
+				  write(clientSocket, &choice, sizeof(int));                    //send choice to server
 
-			  if(choice == 5)
-					  goto Q;
+				  if(choice == 5){
+						  goto Q;
+				  }
+				  read(clientSocket, &answer, sizeof(int));
+				  printf("Server - The answer is: %d\n", answer);
 
-			  read(clientSocket, &answer, sizeof(int));
-			  printf("Server - The answer is: %d\n", answer);
-
-			  if(choice != 5)
-				  goto s;
-
-			  Q:
-			   printf("you have selected to exit. Exit Successful.");
-			   close(clientSocket);
-			   return 0;
-			
-			
+				  if(choice != 5){
+					  goto s;
+				  }
+				  Q:
+				   printf("you have selected to exit. Exit Successful.");
+				   close(clientSocket);
+				   return 0;
 		}
-		
-		
 
-		if(recv(clientSocket, buffer, 1024, 0) < 0){
+		if(recv(clientSocket, buffer, 255, 0) < 0){
 			printf("[-]Error in receiving data.\n");
 		}else{
 			printf("Server: \t%s\n", buffer);

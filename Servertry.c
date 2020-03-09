@@ -25,7 +25,7 @@ int main(){
 
 	socklen_t addr_size;
 
-	char message[1024];
+	char message[255];
 	pid_t childpid;
 
 	sd = socket(AF_INET, SOCK_STREAM, 0);
@@ -67,27 +67,14 @@ int main(){
 			close(sd);
 
 			while(1){
-				recv(newSocket, message, 1024, 0);
+				recv(newSocket, message, 255, 0);
 				if(strcmp(message, ":exit") == 0){
 					printf("Disconnected from %s:%d\n", inet_ntoa(newAddr.sin_addr), ntohs(newAddr.sin_port));
 					break;
-				}else{
-					printf("Client: %s\n", message);
-					send(newSocket, message, strlen(message), 0);
-					bzero(message, sizeof(message));
 				}
 				if(strcmp(message, ":calc") == 0){
-					   listen(sockd, 5);
-					   struct sockaddr_in cl_adr;
-					   socklen_t clilen;
-					   clilen = sizeof(cl_adr);
-						
-					   newsockd = accept(sockd, (struct sockaddr *) &cl_adr, &clilen);
-
-					  if(newsockd < 0){
-					  error("Error on accept");
 					int num1, num2, answer, choice;
-					  }
+
 					s : n=write(newSocket,"Enter Number 1: ",strlen("Enter Number 1")); //Ask for number 1
 					if(n < 0) error("ERROR writing to socket");
 					read(newSocket, &num1, sizeof(int));            //Read No 1
@@ -126,14 +113,14 @@ int main(){
 					if(choice != 5)
 						  goto s;
 
-					Q: close(newSocket);
-					   close(sockd);
+					Q: close(newSocket);					   
 					   return 0;
-					}
 				}
-				
-				
-				
+				else{
+					printf("Client: %s\n", message);
+					send(newSocket, message, strlen(message), 0);
+					bzero(message, sizeof(message));
+				}
 			}
 		}
 	
