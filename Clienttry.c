@@ -88,6 +88,7 @@ int main(){
 				   printf("you have selected to exit. Exit Successful.");
 				   close(clientSocket);
 				   return 0;
+		 break;
 		}
 
 		if(recv(clientSocket, buffer, 255, 0) < 0){
