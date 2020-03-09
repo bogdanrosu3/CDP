@@ -54,21 +54,21 @@ int main(){
 		if(strcmp(buffer, ":calc") == 0){
 			    int num1, num2, answer, choice;
 
-				s:(buffer,256);
+				s:(buffer,255);
 				n=read(clientSocket,buffer,255);                           //read server string
 				if(n<0) {error("ERROR reading from socket");}
 				printf("Server - %s\n",buffer);
 				scanf("%d", &num1);                              //enter nr 1
 				write(clientSocket, &num1, sizeof(int));                    //send nr 1 to server
 
-				  bzero(buffer,256);
+				  bzero(buffer,255);
 				  n=read(clientSocket,buffer,255);                          //read server string
 				  if(n<0) {error("ERROR reading from socket");}
 				  printf("Server - %s\n",buffer);
 				  scanf("%d", &num2);                              //enter nr 2
 				  write(clientSocket, &num2, sizeof(int));                    //send nr 2 to server
 
-				  bzero(buffer,256);
+				  bzero(buffer,255);
 				  n=read(clientSocket,buffer,255);                            //read server string
 				  if(n<0) {error("ERROR reading from socket");}
 				  printf("Server - %s",buffer);
