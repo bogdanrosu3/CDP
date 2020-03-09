@@ -7,7 +7,7 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <errno.h>
-#define PORT 3101
+#define PORT 9998
 
 void error(const char *msg)
 {

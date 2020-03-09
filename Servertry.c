@@ -10,7 +10,7 @@
 
 
 /* portul folosit */
-#define PORT 3101
+#define PORT 9998
 
 /* codul de eroare returnat de anumite apeluri */
 extern int errno;
