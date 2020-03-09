@@ -54,7 +54,7 @@ int main(){
 		if(strcmp(buffer, ":calc") == 0){
 			    int num1, num2, answer, choice;
 
-				s:(buffer,255);
+				s:bzero(buffer,255);
 				n=read(clientSocket,buffer,255);                           //read server string
 				if(n<0) {error("ERROR reading from socket");}
 				printf("Server - %s\n",buffer);
