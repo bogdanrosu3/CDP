@@ -27,7 +27,7 @@ int main(){
 		exit(1);
 	}
 	printf("[+]Client Socket is created.\n");
-	bzero((char *) &serv_adr , sizeof(serv_adr));
+	bzero((char *) &serverAddr , sizeof(serverAddr));
 	memset(&serverAddr, '\0', sizeof(serverAddr));
 	serverAddr.sin_family = AF_INET;
 	serverAddr.sin_port = htons(PORT);
@@ -61,14 +61,14 @@ int main(){
 				scanf("%d", &num1);                              //enter nr 1
 				write(clientSocket, &num1, sizeof(int));                    //send nr 1 to server
 
-				  memset(buffer,256);
+				  bzero(buffer,256);
 				  n=read(clientSocket,buffer,255);                          //read server string
 				  if(n<0) {error("ERROR reading from socket");}
 				  printf("Server - %s\n",buffer);
 				  scanf("%d", &num2);                              //enter nr 2
 				  write(clientSocket, &num2, sizeof(int));                    //send nr 2 to server
 
-				  memset(buffer,256);
+				  bzero(buffer,256);
 				  n=read(clientSocket,buffer,255);                            //read server string
 				  if(n<0) {error("ERROR reading from socket");}
 				  printf("Server - %s",buffer);
